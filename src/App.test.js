@@ -1,8 +1,22 @@
-import { render, screen } from '@testing-library/react';
 import App from './App';
+import Adapter from 'enzyme-adapter-react-16';
+import { shallow, configure } from 'enzyme';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+configure({adapter: new Adapter()});
+describe('App Component', () => {
+  let component;
+
+  beforeEach(() => {
+    component = shallow(<App />);
+  });
+
+  it("should render properly", () => {
+    expect(component).toMatchSnapshot();
+  });
+
+  it("should have a h2 tag", () => {
+    const header = component.find('h2');
+    expect(header.text()).toEqual("Leapyear Kata");
+  });
+
 });
