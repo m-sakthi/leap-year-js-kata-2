@@ -5,16 +5,20 @@ export default class LeapYear extends Component {
     super(props);
 
     this.state = {
-      year: ''
+      year: '',
+      error: 'Enter a valid year.'
     };
   }
 
   handleInputChange = (e) => {
-    this.setState({ year: e.target.value });
+    const { value } = e.target;
+
+    if (value > 0) this.setState({ year: value, error: null });
+    else this.setState({ year: value, error: 'Enter a valid year!' });
   }
 
   render() {
-    const { year } = this.state;
+    const { year, error } = this.state;
 
     return (
       <div testId='wrapper'>
@@ -27,7 +31,7 @@ export default class LeapYear extends Component {
         <br />
         <br />
         <span testId="resultSpan">
-          {year && `Entered year is ${year}.`}
+          {error ? error : `Entered year is ${year}.`}
         </span>
       </div>
     );

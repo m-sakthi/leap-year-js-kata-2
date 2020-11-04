@@ -31,8 +31,8 @@ describe('LeapYear Component', () => {
     expect((component.find(inputEleQry)).length).toBe(1);
   });
 
-  it("should not show message if year is not entered", () => {
-    expect(component.find(resultSpan).text()).toEqual('');
+  it("should show message if year is not entered", () => {
+    expect(component.find(resultSpan).text()).toEqual('Enter a valid year.');
   });
 
   it("should set the entered year in state", () => {
@@ -41,6 +41,14 @@ describe('LeapYear Component', () => {
     component.find(inputEleQry).prop('onChange')({ target: { value: year } });
 
     expect(component.find(resultSpan).text()).toEqual(`Entered year is ${year}.`);
+  });
+
+  it("should show error message if year is given in negative", () => {
+    const year = -123;
+
+    component.find(inputEleQry).prop('onChange')({ target: { value: year } });
+
+    expect(component.find(resultSpan).text()).toEqual('Enter a valid year!');
   });
 
 });
